@@ -2,11 +2,12 @@ import React from 'react';
 import { Formik, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { StyledForm, StyledLabel, StyledButton } from './contactForm.styled';
-import { nanoid } from 'nanoid';
+// import { nanoid } from 'nanoid';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { addContact } from 'redux/contactsSlice';
+// import { addContact } from 'redux/contactsSlice';
 import { getVisibleContact } from 'redux/selectors';
+import { addContact } from 'redux/operations';
 
 const phoneRegExp =
   /^\+?\d{1,4}?[ .-]?(\(\d{1,3}\))?([ .-]?\d{1,4}){1,4}([ .-]?\d{1,9})?$/;
@@ -29,7 +30,7 @@ export function ContactForm() {
     if (allContacts.find(contact => contact.name === values.name)) {
       return alert(`${values.name} is already in contacts`);
     }
-    dispatch(addContact({ ...values, id: nanoid() }));
+    dispatch(addContact({ values }));
     resetForm();
   };
 
