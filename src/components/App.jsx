@@ -1,4 +1,4 @@
-import { getContact, getError, getIsLoading } from 'redux/selectors';
+import { selectContact, selectError, selectIsLoading } from 'redux/selectors';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchContacts } from 'redux/operations';
 import { useEffect } from 'react';
@@ -11,11 +11,11 @@ import { Phonebook } from './App.styled';
 
 export const App = () => {
   const dispatch = useDispatch();
-  const isLoading = useSelector(getIsLoading);
-  const error = useSelector(getError);
+  const isLoading = useSelector(selectIsLoading);
+  const error = useSelector(selectError);
   // Отримуємо частини стану
   // const { items, isLoading, error } = useSelector(getContact);
-  const contacts = useSelector(getContact);
+  const contacts = useSelector(selectContact);
 
   // Викликаємо операцію
   useEffect(() => {

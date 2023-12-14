@@ -1,7 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit';
 // import { persistReducer } from 'redux-persist';
 // import storage from 'redux-persist/lib/storage';
-import { fetchContacts, addContact, deleteContact } from './operations';
+import { fetchContacts, addContacts, deleteContacts } from './operations';
+
+const handlePending = state => {
+  state.isLoading = true;
+};
+
+const handleRejected = (state, action) => {
+  state.isLoading = false;
+  state.error = action.payload;
+};
 
 const contactsSlice = createSlice({
   name: 'contacts',
@@ -11,90 +20,37 @@ const contactsSlice = createSlice({
     error: null,
   },
   // Додаємо обробку зовнішніх екшенів
+
   extraReducers: builder => {
     builder
-      .addCase(deleteContact.pending, state => {
-        state.isLoading = true;
-      })
-      .addCase(deleteContact.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.error = null;
-        const index = state.items.findIndex(
-          task => task.id === action.payload.id
-        );
-        state.items.splice(index, 1);
-      })
-      .addCase(deleteContact.rejected, (state, action) => {
-        state.isLoading = false;
-        state.error = action.payload;
-      })
-      .addCase(addContact.pending, state => {
-        state.isLoading = true;
-      })
-      .addCase(addContact.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.error = null;
-        state.items.push(action.payload);
-      })
-      .addCase(addContact.rejected, (state, action) => {
-        state.isLoading = false;
-        state.error = action.payload;
-      })
-      .addCase(fetchContacts.pending, (state, action) => {
-        state.isLoading = true;
-      })
+
+      .addCase(fetchContacts.pending, handlePending)
       .addCase(fetchContacts.fulfilled, (state, action) => {
         state.isLoading = false;
         state.error = null;
         state.items = action.payload;
       })
-      .addCase(fetchContacts.rejected, (state, action) => {
+      .addCase(fetchContacts.rejected, handleRejected)
+
+      .addCase(addContacts.pending, handlePending)
+      .addCase(addContacts.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.error = action.payload;
-      });
+        state.error = null;
+        state.items.push(action.payload);
+      })
+      .addCase(addContacts.rejected, handleRejected)
+
+      .addCase(deleteContacts.pending, handlePending)
+      .addCase(deleteContacts.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.error = null;
+        const index = state.items.findIndex(
+          contact => contact.id === action.payload.id
+        );
+        state.items.splice(index, 1);
+      })
+      .addCase(deleteContacts.rejected, handleRejected);
   },
-  // redusers: {
-  //   // Виконається в момент старту HTTP-запиту
-  //   fetchingInProgress(state) {
-  //     state.isLoading = true;
-  //   },
-  //   // Виконається якщо HTTP-запит завершився успішно
-  //   fetchingSuccess(state, action) {
-  //     state.isLoading = false;
-  //     state.error = null;
-  //     state.items = action.payload;
-  //   },
-  //   // Виконається якщо HTTP-запит завершився з помилкою
-  //   fetchingError(state, action) {
-  //     state.isLoading = false;
-  //     state.error = action.payload;
-  //   },
-  // },
 });
 
-// export const { fetchingInProgress, fetchingSuccess, fetchingError } =
-//   contactsSlice.actions;
-
 export const contactsReducer = contactsSlice.reducer;
-// const contactsSlice = createSlice({
-//   name: 'contacts',
-//   initialState: contacts,
-//   reducers: {
-//     addContact(state, action) {
-//       state.items.push(action.payload);
-//     },
-//     removeContact(state, action) {
-//       const index = state.items.findIndex(
-//         contact => contact.id !== action.payload
-//       );
-//       state.items.splice(index, 1);
-//     },
-//   },
-// });
-
-// export const { addContact, removeContact } = contactsSlice.actions;
-
-// export const contactsReducer = persistReducer(
-//   { key: 'contacts', storage },
-//   contactsSlice.reducer
-// );

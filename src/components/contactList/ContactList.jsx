@@ -2,13 +2,13 @@ import React from 'react';
 import { StyledList, ContactItem, DeletButton } from './contactList.styled';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { getVisibleContact } from 'redux/selectors';
-import { deleteContact } from 'redux/operations';
+import { selectVisibleContacts } from 'redux/selectors';
+import { deleteContacts } from 'redux/operations';
 
 export const ContactList = ({ contact }) => {
-  const contacts = useSelector(getVisibleContact);
+  const contacts = useSelector(selectVisibleContacts);
   const dispatch = useDispatch();
-  const handleDelete = () => dispatch(deleteContact(contact.id));
+  const handleDelete = () => dispatch(deleteContacts(contact.id));
 
   return (
     <StyledList>
