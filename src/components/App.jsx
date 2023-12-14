@@ -13,11 +13,8 @@ export const App = () => {
   const dispatch = useDispatch();
   const isLoading = useSelector(selectIsLoading);
   const error = useSelector(selectError);
-  // Отримуємо частини стану
-  // const { items, isLoading, error } = useSelector(getContact);
   const contacts = useSelector(selectContact);
 
-  // Викликаємо операцію
   useEffect(() => {
     dispatch(fetchContacts());
   }, [dispatch]);

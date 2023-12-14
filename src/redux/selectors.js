@@ -8,15 +8,6 @@ export const selectError = state => state.contacts.error;
 
 export const selectIsLoading = state => state.contacts.isLoading;
 
-// export const getVisibleContact = state => {
-//   const contacts = getContact(state);
-//   const filter = getFilter(state);
-
-//   return contacts.filter(contact =>
-//     contact.name.toLowerCase().includes(filter.toLowerCase())
-//   );
-// };
-
 export const selectVisibleContacts = createSelector(
   [selectContact, selectFilter],
   (contacts, filter) => {

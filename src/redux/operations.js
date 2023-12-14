@@ -1,12 +1,7 @@
 import axios from 'axios';
-// import {
-//   fetchingInProgress,
-//   fetchingSuccess,
-//   fetchingError,
-// } from './contactsSlice';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-axios.defaults.baseURL = '<https://6579ce861acd268f9afa2046.mockapi.io>';
+axios.defaults.baseURL = 'https://6579ce861acd268f9afa2046.mockapi.io';
 
 export const fetchContacts = createAsyncThunk(
   'contacts/fetchAll',
@@ -48,17 +43,3 @@ export const deleteContacts = createAsyncThunk(
     }
   }
 );
-
-// export const fetchContacts = () => async dispatch => {
-//   try {
-//     // Індикатор завантаження
-//     dispatch(fetchingInProgress());
-//     // HTTP-запит
-//     const response = await axios.get('/contacts');
-//     // Обробка даних
-//     dispatch(fetchingSuccess(response.data));
-//   } catch (e) {
-//     // Обробка помилки
-//     dispatch(fetchingError(e.message));
-//   }
-// };

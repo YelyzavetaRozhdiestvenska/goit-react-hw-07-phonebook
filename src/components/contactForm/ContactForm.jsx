@@ -2,10 +2,8 @@ import React from 'react';
 import { Formik, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { StyledForm, StyledLabel, StyledButton } from './contactForm.styled';
-// import { nanoid } from 'nanoid';
 
 import { useDispatch, useSelector } from 'react-redux';
-// import { addContact } from 'redux/contactsSlice';
 import { selectVisibleContacts } from 'redux/selectors';
 import { addContacts } from 'redux/operations';
 

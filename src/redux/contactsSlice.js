@@ -1,6 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit';
-// import { persistReducer } from 'redux-persist';
-// import storage from 'redux-persist/lib/storage';
 import { fetchContacts, addContacts, deleteContacts } from './operations';
 
 const handlePending = state => {
@@ -27,8 +25,8 @@ const contactsSlice = createSlice({
       .addCase(fetchContacts.pending, handlePending)
       .addCase(fetchContacts.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.error = null;
         state.items = action.payload;
+        state.error = null;
       })
       .addCase(fetchContacts.rejected, handleRejected)
 
