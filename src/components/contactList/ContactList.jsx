@@ -13,7 +13,7 @@ export const ContactList = () => {
     <StyledList>
       {contacts.map(contact => (
         <ContactItem key={contact.id}>
-          {contact.name}: {contact.number}{' '}
+          {contact.name + ' : ' + contact.number}
           <DeletButton onClick={() => dispatch(deleteContacts(contact.id))}>
             Delete
           </DeletButton>
