@@ -4,7 +4,7 @@ import * as Yup from 'yup';
 import { StyledForm, StyledLabel, StyledButton } from './contactForm.styled';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { selectVisibleContacts } from 'redux/selectors';
+import { selectContact } from 'redux/selectors';
 import { addContacts } from 'redux/operations';
 
 const phoneRegExp =
@@ -21,14 +21,14 @@ const schema = Yup.object().shape({
 });
 
 export function ContactForm() {
-  const allContacts = useSelector(selectVisibleContacts);
+  const allContacts = useSelector(selectContact);
   const dispatch = useDispatch();
 
   const handleSubmit = (values, { resetForm }) => {
     if (allContacts.find(contact => contact.name === values.name)) {
       return alert(`${values.name} is already in contacts`);
     }
-    dispatch(addContacts({ values }));
+    dispatch(addContacts({ ...values }));
     resetForm();
   };
 
